@@ -127,7 +127,7 @@ def login():
                 session['lastname'] = user['lastname']
                 session['email'] = user['email']
                 LogCondition = True
-                return redirect(url_for('home'))
+                return redirect(url_for('control'))
             else:
                 flash('User and password not match!')
                 return render_template("login.html")
