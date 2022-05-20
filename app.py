@@ -101,6 +101,14 @@ def controlHUMIDIFIERoff():
 
 @app.route('/')
 def home():
+    if session:
+        dataACTUAL=mydb.actual.find_one()
+        getimage()
+
+        dataRECORD = list(mydb.record.find())
+
+        return render_template("index.html",  dataRECORD=dataRECORD, dataACTUAL=dataACTUAL)
+    else :
         dataACTUAL=mydb.actual.find_one()
         getimage()
 
