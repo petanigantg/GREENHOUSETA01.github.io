@@ -127,7 +127,7 @@ def login():
                 session['lastname'] = user['lastname']
                 session['email'] = user['email']
                 LogCondition = True
-                return redirect(url_for('control'))
+                return redirect(url_for('home'))
             else:
                 flash('User and password not match!')
                 return render_template("login.html")
@@ -189,5 +189,5 @@ def grafik():
     return render_template("charts.html", dataGRAFIK=dataGRAFIK)
 
 if __name__ == '__main__':
-    app.secret_key = "%___greenhouse06^^^AT123___>...<"
+    app.secret_key = "%^^^greenhouse06^^^AT123>...<"
     app.run(debug=True)
