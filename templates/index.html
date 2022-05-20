@@ -1,0 +1,113 @@
+{% extends 'base.html' %} {% block title %} Dashboard {% endblock %} {% block content %}
+<!-- Page Heading -->
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+  <h6 class="h3 mb-0 text-gray-800">Smart Mini Greenhouse TA-06</h6>
+</div>
+
+<!-- Content Row -->
+<div class="row">
+  <!-- Keterangan Suhu -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-info shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-info text-uppercase mb-1">Suhu</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataACTUAL['SUHU'] }} <sup>o</sup>C</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-temperature-low fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Keterangan Suhu -->
+
+  <!-- Keterangan Kelembapan -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-success shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-success text-uppercase mb-1">Kelembapan</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataACTUAL['KELEMBAPAN'] }}%</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-burn fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Keterangan Kelembapan -->
+
+  <!-- Keterangan PH -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-primary shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-primary text-uppercase mb-1">PH</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataACTUAL['PH'] }}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-water fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Keterangan PH -->
+
+  <!-- Keterangan EC / nutrisi -->
+  <div class="col-xl-3 col-md-6 mb-4">
+    <div class="card border-left-warning shadow h-100 py-2">
+      <div class="card-body">
+        <div class="row no-gutters align-items-center">
+          <div class="col mr-2">
+            <div class="text-xs font-weight-bold text-warning text-uppercase mb-1">Nutrisi(EC)</div>
+            <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataACTUAL['EC'] }}</div>
+          </div>
+          <div class="col-auto">
+            <i class="fas fa-pump-medical fa-2x text-gray-300"></i>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Keterangan EC -->
+</div>
+
+<div class="row">
+  <!-- Area Chart -->
+  <div class="col-xl-8 col-lg-7">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <!-- Area Chart -->
+    </div>
+  </div>
+</div>
+
+<!-- Content Row -->
+<!-- Baris Gambar dan Tombol -->
+<div class="row">
+  <!-- Area Chart -->
+  <div class="col-xl-auto col-lg-auto">
+    <div class="card shadow mb-4">
+      <!-- Card Header - Dropdown -->
+      <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Foto Tanaman</h6>
+      </div>
+      <!-- Card Body -->
+      <div class="card-body">
+        <img src="{{url_for('static', filename='image/picture.jpg')}}" class="img-fluid" alt="Cinque Terre" />
+        <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
+      </div>
+      <button type="button" class="btn btn-outline-info">Refresh</button>
+    </div>
+  </div>
+  <div class="d-grid gap-2 col-6 mx-auto"></div>
+</div>
+
+{% endblock %}
