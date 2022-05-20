@@ -189,5 +189,5 @@ def grafik():
     return render_template("charts.html", dataGRAFIK=dataGRAFIK)
 
 if __name__ == '__main__':
-    app.secret_key = "___greenhouse06___>...<"
+    app.secret_key = "%___greenhouse06^^^AT123___>...<"
     app.run(debug=True)
