@@ -8,6 +8,7 @@ import gridfs
 import json
 
 app = Flask(__name__)
+app.secret_key = "%^^^greenhouse06^^^AT123>...<"
 myclient = MongoClient("mongodb+srv://greenhouse06:peAELSBNORDyW6iC@cluster0.ikrjp.mongodb.net/myFirstDatabase?retryWrites=true&w=majority")
 mydb = myclient["mydatabase"]
 mycol = mydb["record"]
@@ -197,5 +198,4 @@ def grafik():
     return render_template("charts.html", dataGRAFIK=dataGRAFIK)
 
 if __name__ == '__main__':
-    app.secret_key = "%^^^greenhouse06^^^AT123>...<"
     app.run(debug=True)
