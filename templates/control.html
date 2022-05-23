@@ -154,7 +154,9 @@
 <script>
   function fungsiHUMIDIFIER() {
     // Get the checkbox
+
     var swHUMIDIFIER = document.getElementById("humidifier");
+    localStorage.setItem("humidifier", swHUMIDIFIER.checked);
     if (swHUMIDIFIER.checked == true) {
       $.getJSON("/humidifierON", function (data) {
         //do nothing
@@ -169,6 +171,7 @@
   function fungsiLAMPU() {
     // Get the checkbox
     var swLAMP = document.getElementById("lamp");
+    localStorage.setItem("lamp", swLAMP.checked);
     if (swLAMP.checked == true) {
       $.getJSON("/lampuON", function (data) {
         //do nothing
@@ -183,6 +186,7 @@
   function fungsiKIPAS() {
     // Get the checkbox
     var swFAN = document.getElementById("fan");
+    localStorage.setItem("fan", swFAN.checked);
     if (swFAN.checked == true) {
       $.getJSON("/kipasON", function (data) {
         //do nothing
@@ -197,6 +201,7 @@
   function fungsiPOMPA() {
     // Get the checkbox
     var swWATERPUMP = document.getElementById("waterpump");
+    localStorage.setItem("waterpump", swWATERPUMP.checked);
     if (swWATERPUMP.checked == true) {
       $.getJSON("pompaON", function (data) {
         //do nothing
@@ -206,6 +211,17 @@
         //do nothing
       });
     }
+  }
+
+  function load() {
+    var checked = JSON.parse(localStorage.getItem("humidifier"));
+    var checked2 = JSON.parse(localStorage.getItem("lamp"));
+    var checked3 = JSON.parse(localStorage.getItem("fan"));
+    var checked4 = JSON.parse(localStorage.getItem("waterpump"));
+    document.getElementById("humidifier").checked = checked;
+    document.getElementById("lamp").checked = checked2;
+    document.getElementById("fan").checked = checked3;
+    document.getElementById("waterpump").checked = checked4;
   }
 </script>
 {% endblock %}
