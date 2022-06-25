@@ -1,13 +1,81 @@
 {% extends 'base.html' %} {% block title %} Blank Page {% endblock %} {% block content %}
 
-<h1 class="h3 mb-4 text-gray-800">Control Page</h1>
+<div class="container-fluid" onload="load()">
+  <h1 class="h3 mb-4 text-gray-800">Control Page</h1>
 
-<div class="container-fluid">
   <!-- Page Heading -->
+  <!-- Content Row Batas Atas (Awal) -->
+  <div class="row">
+    <!-- PH Air -->
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-primary shadow h-100 py-2">
+        <div class="card-body">
+          <div class="text-sm-left font-weight-bold text-primary text-uppercase mb-1">pH Air</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Atas</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['PHlimitATAS'] }}</div>
+            </div>
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Bawah</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['PHlimitBAWAH'] }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-water fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
 
+    <!-- Kelembapan -->
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-success shadow h-100 py-2">
+        <div class="card-body">
+          <div class="text-sm-left font-weight-bold text-success text-uppercase mb-1">Kelembapan</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Atas</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['KELEMBAPANlimitATAS'] }}<sup>o</sup>C</div>
+            </div>
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Bawah</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['KELEMBAPANlimitBAWAH'] }}<sup>o</sup>C</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-burn fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Nutrisi -->
+    <div class="col-xl-4 col-md-6 mb-4">
+      <div class="card border-left-warning shadow h-100 py-2">
+        <div class="card-body">
+          <div class="text-sm-left font-weight-bold text-warning text-uppercase mb-1">Nutrisi</div>
+          <div class="row no-gutters align-items-center">
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Atas</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['EClimitATAS'] }}</div>
+            </div>
+            <div class="col mr-2">
+              <div class="text-xs font-weight-bold text-gray-900 text-capitalize mb-1">Batas Bawah</div>
+              <div class="h5 mb-0 font-weight-bold text-gray-800">{{ dataLIMIT['EClimitBAWAH'] }}</div>
+            </div>
+            <div class="col-auto">
+              <i class="fas fa-pump-medical fa-2x text-gray-300"></i>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <!-- Content Row Batas Atas (Akhir) -->
   <div class="row">
     <div class="col-lg-12">
-      <!-- Circle Buttons -->
+      <!-- Card Control Menu -->
       <div class="card shadow mb-auto">
         <div class="card-header py-3">
           <h6 class="m-0 font-weight-bold text-primary">Control Menu</h6>
@@ -15,43 +83,72 @@
 
         <div class="card-body p-3">
           <div class="row">
-            <div class="col-lg-6">
+            <div class="col-lg-3">
+              <!-- Auto Control Switch -->
               <div class="custom-control custom-switch">
-                <input type="checkbox" class="custom-control-input" id="customSwitches" />
-                <label class="custom-control-label" for="customSwitches">Auto Control</label>
+                <input type="checkbox" class="custom-control-input" id="SwitchAutoControl" onclick="fungsiAUTO()" />
+                <label class="custom-control-label" for="SwitchAutoControl">Auto Control</label>
               </div>
+              <div class="d-grid gap-2 p-3"></div>
+              <img src="{{ url_for('static',filename='img/AutoControl Pics.png') }}" class="img-fluid" alt="Cinque Terre" width="130" height="130" />
+              <div class="d-grid gap-2 p-3"></div>
+              <!-- Notification Control Switch -->
 
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="notif" />
+                <label class="custom-control-label" for="notif">Notification Control</label>
+              </div>
+              <div class="d-grid gap-2 p-3"></div>
+              <img src="{{ url_for('static',filename='img/notification.png') }}" class="img-fluid" alt="Cinque Terre" width="130" height="130" />
               <div class="d-grid gap-2 p-3"></div>
               <div class="row g-3"></div>
-              <div class="col-lg-3 col-sm-6 col-12">
-                <a href="/humidifierON" id="ButtonONhumidifier"><button class="btn btn-outline-success" data-toggle="modal" data-target="#exampleModal">ON</button></a>
-                <a href="/humidifierOFF" id="ButtonONhumidifier"><button class="btn btn-outline-warning">OFF</button></a>
-              </div>
             </div>
 
             <div class="col-lg-6">
-              <!--Nilai Input EC-->
+              <!--Input batas EC-->
               <label class="visually-hidden">Input Values EC</label>
               <div class="row">
                 <div class="col">
-                  <div class="input-group">
-                    <span class="input-group-text">EC</span>
-                    <input type="number" min="0" max="2" class="form-control" placeholder="Min EC" />
-                    <input type="number" min="2" max="5" class="form-control" placeholder="Max EC" />
-                    <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2">
-                      <button class="btn btn-outline-success">OK</button>
+                  <form action="/EClimit" method="POST" class="user">
+                    <div class="input-group">
+                      <span class="input-group-text">EC</span>
+                      <input name="EClimitBAWAH" type="number" min="0" max="2" step="0.01" class="form-control" placeholder="Min EC" required />
+                      <input name="EClimitATAS" type="number" min="2" max="5" step="0.01" class="form-control" placeholder="Max EC" required />
+                      <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2">
+                        <button class="btn btn-outline-success">OK</button>
+                      </div>
                     </div>
-                  </div>
+                  </form>
                 </div>
               </div>
-              <!--Nilai Input pH-->
+              <div class="d-grid gap-2 p-3"></div>
+              <!--Input batas pH-->
               <label class="visually-hidden" for="nilai PH">Input Values pH </label>
-              <div class="input-group">
-                <div class="input-group-text">pH</div>
-                <input type="number" min="0" max="2" class="form-control" id="nilai PH" placeholder="Min pH" />
-                <input type="number" min="2" max="5" class="form-control" id="nilai PH" placeholder="Max pH" />
-                <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2">
-                  <button class="btn btn-outline-success">OK</button>
+              <form action="/PHlimit" method="POST" class="user">
+                <div class="input-group">
+                  <div class="input-group-text">pH</div>
+                  <input name="PHlimitBAWAH" type="number" min="0" max="2" step="0.01" class="form-control" placeholder="Min pH" required />
+                  <input name="PHlimitATAS" type="number" min="2" max="14" step="0.01" class="form-control" placeholder="Max pH" required />
+                  <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2">
+                    <button class="btn btn-outline-success">OK</button>
+                  </div>
+                </div>
+              </form>
+              <div class="d-grid gap-2 p-3"></div>
+              <!--Input batas Humidity-->
+              <label class="visually-hidden">Input Values Humidity</label>
+              <div class="row">
+                <div class="col">
+                  <form action="/KELEMBAPANlimit" method="POST" class="user">
+                    <div class="input-group">
+                      <span class="input-group-text"><sup>o</sup>C</span>
+                      <input name="KELEMBAPANlimitATAS" type="number" min="0" max="2" step="0.01" class="form-control" placeholder="Min Humidity" required />
+                      <input name="KELEMBAPANlimitBAWAH" type="number" min="2" max="5" step="0.01" class="form-control" placeholder="Max Humidity" required />
+                      <div class="col-lg-3 col-sm-6 col-12 mt-lg-0 mt-2">
+                        <button class="btn btn-outline-success">OK</button>
+                      </div>
+                    </div>
+                  </form>
                 </div>
               </div>
             </div>
@@ -61,8 +158,10 @@
     </div>
   </div>
 
+  <!-- Manual Control -->
   <div class="card-body p-3">
     <div class="row">
+      <!-- Control Kipas -->
       <div class="col-lg-3">
         <div class="card card-chart">
           <div class="card-header">
@@ -72,18 +171,19 @@
             <img src="{{ url_for('static',filename='img/fan.png') }}" class="img-fluid" alt="Cinque Terre" />
             <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
             <h3 class="text-center">Fan</h3>
-            <div class="chart-area">
-              <div class="col-6 mx-auto">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="fan" onclick="fungsiKIPAS()" />
-                  <label class="custom-control-label" for="fan">Fan Button</label>
-                </div>
+            <div class="d-grid gap-2 p-3"></div>
+
+            <div class="col-6 mx-auto">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="fan" onclick="fungsiKIPAS()" />
+                <label class="custom-control-label" for="fan">Fan Button</label>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Control Lampu -->
       <div class="col-lg-3">
         <div class="card card-chart">
           <div class="card-header">
@@ -93,18 +193,18 @@
             <img src="{{ url_for('static',filename='img/lamp.png') }}" class="img-fluid" alt="Cinque Terre" />
             <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
             <h3 class="text-center">Growlight</h3>
-            <div class="chart-area">
-              <div class="col-6 mx-auto">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="lamp" onclick="fungsiLAMPU()" />
-                  <label class="custom-control-label" for="lamp">Growlight Button</label>
-                </div>
+            <div class="d-grid gap-2 p-3"></div>
+            <div class="col-6 mx-auto">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="lamp" onclick="fungsiLAMPU()" />
+                <label class="custom-control-label" for="lamp">Growlight Button</label>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Control Pompa -->
       <div class="col-lg-3">
         <div class="card card-chart">
           <div class="card-header">
@@ -115,18 +215,18 @@
             <img src="{{ url_for('static',filename='img/waterpump2.png') }}" class="img-fluid" alt="Cinque Terre" />
             <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
             <h3 class="text-center">Water Pump</h3>
-            <div class="chart-area">
-              <div class="col-6 mx-auto">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="waterpump" onclick="fungsiPOMPA()" />
-                  <label class="custom-control-label" for="waterpump">waterpump Button</label>
-                </div>
+            <div class="d-grid gap-2 p-3"></div>
+            <div class="col-6 mx-auto">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="waterpump" onclick="fungsiPOMPA()" />
+                <label class="custom-control-label" for="waterpump">waterpump Button</label>
               </div>
             </div>
           </div>
         </div>
       </div>
 
+      <!-- Control Humidifier -->
       <div class="col-lg-3">
         <div class="card card-chart">
           <div class="card-header">
@@ -136,12 +236,11 @@
             <img src="{{ url_for('static',filename='img/humidifier.png') }}" class="img-fluid" alt="Cinque Terre" />
             <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
             <h3 class="text-center">Humidifier</h3>
-            <div class="chart-area">
-              <div class="col-6 mx-auto">
-                <div class="custom-control custom-switch">
-                  <input type="checkbox" class="custom-control-input" id="humidifier" onclick="fungsiHUMIDIFIER()" />
-                  <label class="custom-control-label" for="humidifier">Humidifier Button</label>
-                </div>
+            <div class="d-grid gap-2 p-3"></div>
+            <div class="col-6 mx-auto">
+              <div class="custom-control custom-switch">
+                <input type="checkbox" class="custom-control-input" id="humidifier" onclick="fungsiHUMIDIFIER()" />
+                <label class="custom-control-label" for="humidifier">Humidifier Button</label>
               </div>
             </div>
           </div>
@@ -152,76 +251,104 @@
 </div>
 
 <script>
+  var swFAN = document.getElementById("fan");
+  var swHUMIDIFIER = document.getElementById("humidifier");
+  var swWATERPUMP = document.getElementById("waterpump");
+  var swLAMP = document.getElementById("lamp");
+  var SwitchAutoControl = document.getElementById("SwitchAutoControl");
   function fungsiHUMIDIFIER() {
     // Get the checkbox
 
-    var swHUMIDIFIER = document.getElementById("humidifier");
+    //toggle humidifier
+
     localStorage.setItem("humidifier", swHUMIDIFIER.checked);
     if (swHUMIDIFIER.checked == true) {
-      $.getJSON("/humidifierON", function (data) {
-        //do nothing
-      });
+      $.getJSON("/humidifierON", function (data) {});
     } else {
-      $.getJSON("/humidifierOFF", function (data) {
-        //do nothing
-      });
+      $.getJSON("/humidifierOFF", function (data) {});
     }
   }
-
+  //toggle lampu
   function fungsiLAMPU() {
     // Get the checkbox
-    var swLAMP = document.getElementById("lamp");
+
     localStorage.setItem("lamp", swLAMP.checked);
     if (swLAMP.checked == true) {
-      $.getJSON("/lampuON", function (data) {
-        //do nothing
-      });
+      $.getJSON("/lampuON", function (data) {});
     } else {
-      $.getJSON("/lampuOFF", function (data) {
-        //do nothing
-      });
+      $.getJSON("/lampuOFF", function (data) {});
     }
   }
 
+  //toggle kipas
   function fungsiKIPAS() {
     // Get the checkbox
-    var swFAN = document.getElementById("fan");
     localStorage.setItem("fan", swFAN.checked);
     if (swFAN.checked == true) {
-      $.getJSON("/kipasON", function (data) {
-        //do nothing
-      });
+      $.getJSON("/kipasON", function (data) {});
     } else {
-      $.getJSON("/kipasOFF", function (data) {
-        //do nothing
-      });
+      $.getJSON("/kipasOFF", function (data) {});
     }
   }
 
+  //toggle pompa
   function fungsiPOMPA() {
     // Get the checkbox
-    var swWATERPUMP = document.getElementById("waterpump");
+
     localStorage.setItem("waterpump", swWATERPUMP.checked);
     if (swWATERPUMP.checked == true) {
-      $.getJSON("pompaON", function (data) {
-        //do nothing
-      });
+      $.getJSON("pompaON", function (data) {});
     } else {
-      $.getJSON("/pompaOFF", function (data) {
-        //do nothing
-      });
+      $.getJSON("/pompaOFF", function (data) {});
     }
   }
 
+  function fungsiAUTO() {
+    // Get the checkbox
+    localStorage.setItem("SwitchAutoControl", SwitchAutoControl.checked);
+    if (SwitchAutoControl.checked == true) {
+      $("#humidifier").attr("disabled", true);
+      $("#lamp").attr("disabled", true);
+      $("#fan").attr("disabled", true);
+      $("#waterpump").attr("disabled", true);
+      $("#test").val(localStorage.getItem("itmTest"));
+    } else {
+      $("#humidifier").attr("disabled", false);
+      $("#lamp").attr("disabled", false);
+      $("#fan").attr("disabled", false);
+      $("#waterpump").attr("disabled", false);
+      ButtonAutoControlON.disabled;
+      ButtonAutoControlOFF.disabled;
+    }
+  }
+
+  //memory save kondisi toggle
   function load() {
     var checked = JSON.parse(localStorage.getItem("humidifier"));
     var checked2 = JSON.parse(localStorage.getItem("lamp"));
     var checked3 = JSON.parse(localStorage.getItem("fan"));
     var checked4 = JSON.parse(localStorage.getItem("waterpump"));
+    var checked5 = JSON.parse(localStorage.getItem("SwitchAutoControl"));
     document.getElementById("humidifier").checked = checked;
     document.getElementById("lamp").checked = checked2;
     document.getElementById("fan").checked = checked3;
     document.getElementById("waterpump").checked = checked4;
+    document.getElementById("SwitchAutoControl").checked = checked5;
+    localStorage.setItem("SwitchAutoControl", SwitchAutoControl.checked);
+    if (SwitchAutoControl.checked == true) {
+      $("#humidifier").attr("disabled", true);
+      $("#lamp").attr("disabled", true);
+      $("#fan").attr("disabled", true);
+      $("#waterpump").attr("disabled", true);
+      $("#test").val(localStorage.getItem("itmTest"));
+    } else {
+      $("#humidifier").attr("disabled", false);
+      $("#lamp").attr("disabled", false);
+      $("#fan").attr("disabled", false);
+      $("#waterpump").attr("disabled", false);
+      ButtonAutoControlON.disabled;
+      ButtonAutoControlOFF.disabled;
+    }
   }
 </script>
 {% endblock %}

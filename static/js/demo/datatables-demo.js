@@ -1,8 +1,4 @@
-// Call the dataTables jQuery plugin
+//ID tabel riwayat diubah
 $(document).ready(function () {
-  $("#dataTable").DataTable();
-});
-
-$(document).ready(function () {
-  $("#example").DataTable();
+  $("#tabelriwayat").DataTable();
 });

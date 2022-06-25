@@ -3,7 +3,7 @@
 <!-- Page Heading -->
 <div class="d-sm-flex align-items-center justify-content-between mb-4">
   <h1 class="h3 mb-2 text-gray-800">Record</h1>
-  <a href="#" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm"><i class="fas fa-download fa-sm text-white-50"></i> Download Data</a>
+  <a id="buttons" class="d-none d-sm-inline-block btn btn-sm btn-success shadow-sm button_export_excel" href="/excelDownload"><i class="fas fa-download fa-sm text-white-50"></i> Download Data</a>
 </div>
 
 <!-- DataTables Example -->
@@ -13,7 +13,7 @@
   </div>
   <div class="card-body">
     <div class="table-responsive">
-      <table class="table table-bordered" id="example" width="100%" cellspacing="0">
+      <table class="table table-bordered" id="tabelriwayat" width="100%" cellspacing="0">
         <thead>
           <tr>
             <th>ID</th>
@@ -42,7 +42,7 @@
     </div>
   </div>
 </div>
-
+<script></script>
 <!-- Bootstrap core JavaScript-->
 
 {% endblock %}
