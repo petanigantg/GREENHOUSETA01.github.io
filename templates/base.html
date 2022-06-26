@@ -42,35 +42,60 @@
         <hr class="sidebar-divider my-0" />
 
         <!-- Nav Item - Dashboard -->
+        {% if sidebarON == 1 %}
+        <li class="nav-item active">
+          <a class="nav-link" href="/">
+            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <span>Dashboard</span></a
+          >
+        </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link" href="/">
             <i class="fas fa-fw fa-tachometer-alt"></i>
             <span>Dashboard</span></a
           >
         </li>
-
+        {% endif %}
         <!-- Divider -->
         <hr class="sidebar-divider" />
 
         <!-- Heading -->
         <div class="sidebar-heading">Pilihan Menu</div>
 
+        {% if sidebarON == 2 %}
         <!-- Nav Item - Monitoring -->
+        <li class="nav-item active">
+          <a class="nav-link" href="/grafik">
+            <i class="fas fa-fw fa-chart-area"></i>
+            <span>Grafik</span></a
+          >
+        </li>
+        {% else %}
         <li class="nav-item">
           <a class="nav-link" href="/grafik">
             <i class="fas fa-fw fa-chart-area"></i>
-            <span>Monitoring</span></a
+            <span>Grafik</span></a
           >
         </li>
+        {% endif %}
 
         <!-- Nav Item - Documentation -->
-        <li class="nav-item">
+        {% if sidebarON == 3 %}
+        <li class="nav-item active">
           <a class="nav-link" href="/docs">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-table"></i>
             <span>Documentation</span></a
           >
         </li>
-        {% if session['firstname'] %}
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/docs">
+            <i class="fas fa-fw fa-table"></i>
+            <span>Documentation</span></a
+          >
+        </li>
+        {% endif %} {% if session['firstname'] %}
         <!-- Nav Item - Components Collapse Menu -->
         <li class="nav-item">
           <a class="nav-link" href="/control">
@@ -89,13 +114,21 @@
 
         {% endif %}
         <!-- Nav Item - Credit -->
-        <li class="nav-item">
+        {% if sidebarON == 5 %}
+        <li class="nav-item active">
           <a class="nav-link" href="/base">
-            <i class="fas fa-fw fa-chart-area"></i>
+            <i class="fas fa-fw fa-bookmark"></i>
             <span>Credit</span></a
           >
         </li>
-
+        {% else %}
+        <li class="nav-item">
+          <a class="nav-link" href="/base">
+            <i class="fas fa-fw fa-bookmark"></i>
+            <span>Credit</span></a
+          >
+        </li>
+        {% endif %}
         <!-- Divider -->
         <hr class="sidebar-divider d-none d-md-block" />
 
@@ -134,13 +167,13 @@
                   {% if notif[0] == 1 %}
                   <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
-                      <div class="icon-circle bg-primary">
-                        <i class="fas fa-file-alt text-white"></i>
+                      <div class="icon-circle bg-warning">
+                        <i class="fas fa-pump-medical text-white"></i>
                       </div>
                     </div>
                     <div>
                       <div class="small text-gray-500">EC alert</div>
-                      <span class="font-weight-bold">{{ notif[1] }}</span>
+                      {{ notif[1] }}
                     </div>
                   </a>
                   {% endif %}
@@ -148,8 +181,8 @@
                   {% if notif[2] == 1 %}
                   <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
-                      <div class="icon-circle bg-success">
-                        <i class="fas fa-donate text-white"></i>
+                      <div class="icon-circle bg-primary">
+                        <i class="fas fa-water text-white"></i>
                       </div>
                     </div>
                     <div>
@@ -162,8 +195,8 @@
                   {% if notif[4] == 1 %}
                   <a class="dropdown-item d-flex align-items-center" href="#">
                     <div class="mr-3">
-                      <div class="icon-circle bg-warning">
-                        <i class="fas fa-exclamation-triangle text-white"></i>
+                      <div class="icon-circle bg-success">
+                        <i class="fas fa-burn text-white"></i>
                       </div>
                     </div>
                     <div>

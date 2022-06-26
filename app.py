@@ -15,6 +15,7 @@ mydb = myclient["mydatabase"]
 mycol = mydb["record"]
 mycol2 = mydb["user"]
 
+sidebarON = 0
 
 def notification():
     notifEC = 0
@@ -65,7 +66,7 @@ def notification():
 def getimage():
     fs = gridfs.GridFS(mydb)
     name = 'picture.jpg'
-    download = "static/image/" + name
+    download = "static/img/" + name
     data = mydb.fs.files.find_one({'filename': name })
     my_id = data['_id']
     outputdata = fs.get(my_id).read()
@@ -111,6 +112,34 @@ def KELEMBAPANlimit():
         KELEMBAPANlimitBAWAH = request.form['KELEMBAPANlimitBAWAH']
         myquery = { "_id": 1 }
         newvalues = { "$set": {"KELEMBAPANlimitATAS": float(KELEMBAPANlimitATAS) , "KELEMBAPANlimitBAWAH" : float(KELEMBAPANlimitBAWAH)} }
+        mydb.button.update_one(myquery, newvalues)
+        return redirect(url_for('control'))
+
+@app.route('/autoON')
+def controlAUTOon():
+        myquery = { "_id": 1 }
+        newvalues = { "$set": {"autorefill": 1} }
+        mydb.button.update_one(myquery, newvalues)
+        return redirect(url_for('control'))
+
+@app.route('/autoOFF')
+def controlAUTOoff():
+        myquery = { "_id": 1 }
+        newvalues = { "$set": {"autorefill": 0} }
+        mydb.button.update_one(myquery, newvalues)
+        return redirect(url_for('control'))
+
+@app.route('/notifON')
+def controlNOTIFon():
+        myquery = { "_id": 1 }
+        newvalues = { "$set": {"sistemnotifikasi": 1} }
+        mydb.button.update_one(myquery, newvalues)
+        return redirect(url_for('control'))
+
+@app.route('/notifOFF')
+def controlNOTIFoff():
+        myquery = { "_id": 1 }
+        newvalues = { "$set": {"sistemnotifikasi": 0} }
         mydb.button.update_one(myquery, newvalues)
         return redirect(url_for('control'))
 
@@ -182,11 +211,12 @@ def excelDownload():
 
 @app.route('/')
 def home():
+    sidebarON = 1
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
     getimage()
     dataRECORD = list(mydb.record.find())
-    return render_template("index.html",  dataRECORD=dataRECORD, dataACTUAL=dataACTUAL, notif=notif)
+    return render_template("index.html",  dataRECORD=dataRECORD, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
     
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -242,11 +272,13 @@ def register():
 
 @app.route('/base', methods=["GET", "POST"])
 def base():
+    sidebarON = 5
     notif = notification()
-    return render_template("blank.html", notif=notif)
+    return render_template("blank.html", notif=notif, sidebarON=sidebarON)
 
 @app.route('/control', methods=["GET", "POST"])
 def control():
+    sidebarON = 4
     if session:
         buttonCON=mydb.button.find_one()
         kipasCON=buttonCON["KIPAS"]
@@ -255,21 +287,23 @@ def control():
         humidifierCON=buttonCON["HUMIDIFIER"]
         dataLIMIT = mydb.button.find_one()
         notif = notification()
-        return render_template("control.html", kipasCON=kipasCON,lampuCON=lampuCON,pompaCON=pompaCON,humidifierCON=humidifierCON,dataLIMIT=dataLIMIT, notif=notif)
+        return render_template("control.html", kipasCON=kipasCON,lampuCON=lampuCON,pompaCON=pompaCON,humidifierCON=humidifierCON,dataLIMIT=dataLIMIT, notif=notif, sidebarON=sidebarON)
     else:
         return redirect(url_for('login'))
 
 @app.route('/docs', methods=["GET", "POST"])
 def docs():
+    sidebarON = 3
     dataRECORD = list(mydb.record.find())
     notif = notification()
-    return render_template("tables.html", dataRECORD=dataRECORD, notif=notif)
+    return render_template("tables.html", dataRECORD=dataRECORD, notif=notif, sidebarON=sidebarON)
 
 @app.route('/grafik', methods=["GET", "POST"])
 def grafik():
+    sidebarON = 2
     notif = notification()
     dataGRAFIK = list(mydb.grafik_data.find().sort("_id"))
-    return render_template("charts.html", dataGRAFIK=dataGRAFIK, notif=notif)
+    return render_template("charts.html", dataGRAFIK=dataGRAFIK, notif=notif, sidebarON=sidebarON)
 
 @app.route('/LCD')
 def homeLCD():
