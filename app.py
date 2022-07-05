@@ -215,8 +215,8 @@ def home():
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
     getimage()
-    dataRECORD = list(mydb.record.find())
-    return render_template("index.html",  dataRECORD=dataRECORD, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
+    foto = mydb.button.find_one()
+    return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
     
 
 @app.route('/login', methods=['GET', 'POST'])

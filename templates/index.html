@@ -76,20 +76,15 @@
       </div>
     </div>
   </div>
-  <!-- Keterangan EC -->
 </div>
 
 <div class="row">
   <!-- Area Chart -->
   <div class="col-xl-8 col-lg-7">
-    <div class="card shadow mb-4">
-      <!-- Card Header - Dropdown -->
-      <!-- Area Chart -->
-    </div>
+    <div class="card shadow mb-4"></div>
   </div>
 </div>
 
-<!-- Content Row -->
 <!-- Baris Gambar dan Tombol -->
 <div class="row">
   <!-- Area Chart -->
@@ -101,10 +96,14 @@
       </div>
       <!-- Card Body -->
       <div class="card-body">
-        <img src="{{url_for('static', filename='img/picture.jpg')}}" class="img-fluid" alt="Cinque Terre" />
+        {% if foto['CAMERA'] == 1 %}
+        <img src="{{url_for('static', filename='img/spiner.gif')}}" class="img-fluid" alt="Cinque Terre" id="plantPHOTOS" />
+        {% else %}
+        <img src="{{url_for('static', filename='img/picture.jpg')}}" class="img-fluid" alt="Cinque Terre" id="plantPHOTOS" />
+        {% endif %}
         <div class="d-grid gap-2 d-md-flex justify-content-md-end"></div>
       </div>
-      <button type="button" class="btn btn-outline-info">Refresh</button>
+      <button id="BTNrefreshFOTO" type="button" class="btn btn-outline-info" onclick="refreshFOTOjs()">Refresh</button>
     </div>
   </div>
   <div class="d-grid gap-2 col-6 mx-auto"></div>
