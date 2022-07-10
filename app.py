@@ -115,6 +115,14 @@ def KELEMBAPANlimit():
         mydb.button.update_one(myquery, newvalues)
         return redirect(url_for('control'))
 
+
+@app.route('/refreshFOTO')
+def refreshFOTO():
+        myquery = { "_id": 1 }
+        newvalues = { "$set": {"CAMERA": 1} }
+        mydb.button.update_one(myquery, newvalues)
+        return redirect(url_for('home'))
+
 @app.route('/autoON')
 def controlAUTOon():
         myquery = { "_id": 1 }

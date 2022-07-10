@@ -331,8 +331,8 @@
       function refreshFOTOjs() {
         $(document).ready(function () {
           $("#BTNrefreshFOTO").click(function () {
-            $("#refreshFOTO").modal();
             document.getElementById("plantPHOTOS").src = "static/img/spiner.gif";
+            $.getJSON("/refreshFOTO", function (data) {});
           });
         });
       }
