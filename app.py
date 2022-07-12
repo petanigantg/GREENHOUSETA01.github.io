@@ -126,14 +126,14 @@ def refreshFOTO():
 @app.route('/autoON')
 def controlAUTOon():
         myquery = { "_id": 1 }
-        newvalues = { "$set": {"autorefill": 1} }
+        newvalues = { "$set": {"PAUSE": 1} }
         mydb.button.update_one(myquery, newvalues)
         return redirect(url_for('control'))
 
 @app.route('/autoOFF')
 def controlAUTOoff():
         myquery = { "_id": 1 }
-        newvalues = { "$set": {"autorefill": 0} }
+        newvalues = { "$set": {"PAUSE": 0} }
         mydb.button.update_one(myquery, newvalues)
         return redirect(url_for('control'))
 
@@ -213,7 +213,7 @@ def controlHUMIDIFIERoff():
 def excelDownload():
     dataRECORD = list(mydb.record.find())
     data = pd.DataFrame(dataRECORD)
-    data.to_excel('static\\filerecord\\GreenHouseRecord.xlsx', sheet_name='sheet1', index=False)
+    data.to_excel('GreenHouse06Record.xlsx', sheet_name='sheet1', index=False)
     path = "static\\filerecord\\GreenHouseRecord.xlsx"
     return send_file(path, as_attachment=True)
 
@@ -226,7 +226,6 @@ def home():
     foto = mydb.button.find_one()
     return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
     
-
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == "POST":
