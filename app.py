@@ -208,7 +208,6 @@ def controlHUMIDIFIERoff():
         mydb.button.update_one(myquery, newvalues)
         return redirect(url_for('control'))
 
-
 @app.route('/excelDownload')
 def excelDownload():
     dataRECORD = list(mydb.record.find())
