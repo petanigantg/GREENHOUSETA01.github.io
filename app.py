@@ -121,6 +121,7 @@ def refreshFOTO():
         myquery = { "_id": 1 }
         newvalues = { "$set": {"CAMERA": 1} }
         mydb.button.update_one(myquery, newvalues)
+        getimage()
         return redirect(url_for('home'))
 
 @app.route('/autoON')
@@ -221,7 +222,6 @@ def home():
     sidebarON = 1
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
-    getimage()
     foto = mydb.button.find_one()
     return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
     
