@@ -121,7 +121,6 @@ def refreshFOTO():
         myquery = { "_id": 1 }
         newvalues = { "$set": {"CAMERA": 1} }
         mydb.button.update_one(myquery, newvalues)
-        getimage()
         return redirect(url_for('home'))
 
 @app.route('/autoON')
@@ -214,7 +213,7 @@ def excelDownload():
     dataRECORD = list(mydb.record.find())
     data = pd.DataFrame(dataRECORD)
     data.to_excel('GreenHouse06Record.xlsx', sheet_name='sheet1', index=False)
-    path = "static\\filerecord\\GreenHouseRecord.xlsx"
+    path = "static\\filerecord\\GreenHouse06Record.xlsx"
     return send_file(path, as_attachment=True)
 
 @app.route('/')
@@ -223,6 +222,8 @@ def home():
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
     foto = mydb.button.find_one()
+    if foto['CAMERA'] == 0:
+        getimage()
     return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
     
 @app.route('/login', methods=['GET', 'POST'])

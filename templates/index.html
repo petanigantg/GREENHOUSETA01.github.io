@@ -97,7 +97,7 @@
       <!-- Card Body -->
       <div class="card-body">
         {% if foto['CAMERA'] == 1 %}
-        <img src="{{url_for('static', filename='img/spiner.gif')}}" class="img-fluid" alt="Cinque Terre" id="plantPHOTOS" style="transform: rotate(90deg)" />
+        <img src="{{url_for('static', filename='img/spiner.gif')}}" class="img-fluid" alt="Cinque Terre" id="plantPHOTOS" />
         {% else %}
         <img src="{{url_for('static', filename='img/picture.jpg')}}" class="img-fluid fa-rotate-180" alt="Cinque Terre" id="plantPHOTOS" />
         {% endif %}
