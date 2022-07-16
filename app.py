@@ -212,8 +212,8 @@ def controlHUMIDIFIERoff():
 def excelDownload():
     dataRECORD = list(mydb.record.find())
     data = pd.DataFrame(dataRECORD)
-    data.to_excel('GreenHouse06Record.xlsx', sheet_name='sheet1', index=False)
-    path = "static\\filerecord\\GreenHouse06Record.xlsx"
+    data.to_excel('GreenHouse06Record.xlsx', sheet_name='sheet1',header=True)
+    path = "GreenHouse06Record.xlsx"
     return send_file(path, as_attachment=True)
 
 @app.route('/')
