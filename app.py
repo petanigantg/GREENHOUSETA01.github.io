@@ -221,10 +221,11 @@ def home():
     sidebarON = 1
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
+    airmix = str(dataACTUAL['Vairmix'])
     foto = mydb.button.find_one()
     if foto['CAMERA'] == 0:
         getimage()
-    return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON)
+    return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON, airmix=airmix)
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -312,12 +313,20 @@ def grafik():
     dataGRAFIK = list(mydb.grafik_data.find().sort("_id"))
     return render_template("charts.html", dataGRAFIK=dataGRAFIK, notif=notif, sidebarON=sidebarON)
 
-@app.route('/LCD')
+@app.route('/controlLCD')
 def homeLCD():
     session['firstname'] = "LCD"
     session['lastname'] = "Account"
     session['email'] = ""
-    return redirect(url_for('home'))
+    buttonCON=mydb.button.find_one()
+    kipasCON=buttonCON["KIPAS"]
+    lampuCON=buttonCON["LAMPU"]
+    pompaCON=buttonCON["POMPA"]
+    humidifierCON=buttonCON["HUMIDIFIER"]
+    dataLIMIT = mydb.button.find_one()
+    notif = notification()
+    return render_template("control.html", kipasCON=kipasCON,lampuCON=lampuCON,pompaCON=pompaCON,humidifierCON=humidifierCON,dataLIMIT=dataLIMIT, notif=notif, sidebarON=sidebarON)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
