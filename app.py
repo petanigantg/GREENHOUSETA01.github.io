@@ -20,6 +20,8 @@ sidebarON = 0
 def notification():
     notifEC = 0
     ECword = ""
+    PHword = ""
+    KELEMBAPANword = ""
     buttonCON=mydb.button.find_one()
     dataACTUAL=mydb.actual.find_one()
     EClimitATAS = buttonCON["EClimitATAS"]

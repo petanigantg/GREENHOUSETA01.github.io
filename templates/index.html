@@ -128,4 +128,14 @@
   <div class="d-grid gap-2 col-6 mx-auto"></div>
 </div>
 
+<script>
+  setInterval(myTimer, 5000);
+
+  function refreshFOTOjs() {
+    $(document).ready(function () {
+      document.getElementById("plantPHOTOS").src = "static/img/spiner.gif";
+      $.getJSON("/refreshFOTO", function (data) {});
+    });
+  }
+</script>
 {% endblock %}
