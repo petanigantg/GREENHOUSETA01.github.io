@@ -17,6 +17,30 @@ mycol2 = mydb["user"]
 
 sidebarON = 0
 
+def limitRECORD():
+    jumlahDATArecord = 336 #jumlah data dalam 2 minggu (14 x 24)
+    data = mydb.record.count_documents({})
+    if data > jumlahDATArecord: 
+        selisihDATA = data - jumlahDATArecord
+        for i in range(1,(jumlahDATArecord+1)):
+            id_awal = i + int(selisihDATA)
+            y = mydb.record.find_one({"_id": id_awal}) #DATA YANG INGIN DIPINDAH
+            id = { "_id": i }
+            EC = y["EC"]
+            SUHU = y["SUHU"]
+            KELEMBAPAN = y["KELEMBAPAN"]
+            PH = y["PH"]
+            TANGGAL = y["DATE"]
+            WAKTU = y["TIME"]
+
+            updateVALUE = { "$set": { "DATE": TANGGAL, "TIME": WAKTU,  "EC": EC ,"PH": PH ,"SUHU": SUHU,"KELEMBAPAN": KELEMBAPAN } }
+            mydb.record.update_one(id, updateVALUE) #UPDATE KE DATA DENGAN id tujuan 
+
+        for x in range((jumlahDATArecord+1),(data+1)): #PROGRAM HAPUS RECORD
+            myquery = { "_id":x }
+            mycol.delete_one(myquery)
+
+
 def notification():
     notifEC = 0
     ECword = ""
@@ -223,11 +247,13 @@ def home():
     sidebarON = 1
     notif = notification()
     dataACTUAL=mydb.actual.find_one()
-    airmix = str(dataACTUAL['Vairmix'])
+    airmix = round(dataACTUAL['Vairmix'], 2)
+    airbersih = round(dataACTUAL['Vairbersih'], 2)
+    airvitamin = round(dataACTUAL['Vairvitamin'], 2)
     foto = mydb.button.find_one()
     if foto['CAMERA'] == 0:
         getimage()
-    return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON, airmix=airmix)
+    return render_template("index.html",  foto=foto, dataACTUAL=dataACTUAL, notif=notif, sidebarON=sidebarON, airmix=airmix, airbersih=airbersih, airvitamin=airvitamin)
     
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -303,7 +329,7 @@ def control():
 
 @app.route('/docs', methods=["GET", "POST"])
 def docs():
-    sidebarON = 3
+    limitRECORD()
     dataRECORD = list(mydb.record.find())
     notif = notification()
     return render_template("tables.html", dataRECORD=dataRECORD, notif=notif, sidebarON=sidebarON)
