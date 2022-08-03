@@ -28,7 +28,7 @@
         <tbody>
           {% for row in dataRECORD %}
           <tr>
-            <td>{{ row['_id'] }}</td>
+            <td>{{ loop.index }}</td>
             <td>{{ row['DATE'] }}</td>
             <td>{{ row['TIME'] }}</td>
             <td>{{ row['PH'] }}</td>

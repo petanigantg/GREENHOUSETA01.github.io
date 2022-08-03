@@ -20,23 +20,10 @@ sidebarON = 0
 def limitRECORD():
     jumlahDATArecord = 336 #jumlah data dalam 2 minggu (14 x 24)
     data = mydb.record.count_documents({})
-    if data > jumlahDATArecord: 
+    if data > jumlahDATArecord: #data melebihi 2 minggu
         selisihDATA = data - jumlahDATArecord
-        for i in range(1,(jumlahDATArecord+1)):
-            id_awal = i + int(selisihDATA)
-            y = mydb.record.find_one({"_id": id_awal}) #DATA YANG INGIN DIPINDAH
-            id = { "_id": i }
-            EC = y["EC"]
-            SUHU = y["SUHU"]
-            KELEMBAPAN = y["KELEMBAPAN"]
-            PH = y["PH"]
-            TANGGAL = y["DATE"]
-            WAKTU = y["TIME"]
-
-            updateVALUE = { "$set": { "DATE": TANGGAL, "TIME": WAKTU,  "EC": EC ,"PH": PH ,"SUHU": SUHU,"KELEMBAPAN": KELEMBAPAN } }
-            mydb.record.update_one(id, updateVALUE) #UPDATE KE DATA DENGAN id tujuan 
-
-        for x in range((jumlahDATArecord+1),(data+1)): #PROGRAM HAPUS RECORD
+        minID = mydb.record.find_one(sort=[("_id", 1)])
+        for x in range(minID,(minID+selisihDATA)): #PROGRAM HAPUS RECORD
             myquery = { "_id":x }
             mycol.delete_one(myquery)
 
