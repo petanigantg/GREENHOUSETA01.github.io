@@ -23,7 +23,8 @@ def limitRECORD():
     if data > jumlahDATArecord: #data melebihi 2 minggu
         selisihDATA = data - jumlahDATArecord
         minID = mydb.record.find_one(sort=[("_id", 1)])
-        for x in range(minID,(minID+selisihDATA)): #PROGRAM HAPUS RECORD
+        lastDELETE = minID['_id'] + selisihDATA
+        for x in range(minID['_id'],lastDELETE): #PROGRAM HAPUS RECORD
             myquery = { "_id":x }
             mycol.delete_one(myquery)
 
